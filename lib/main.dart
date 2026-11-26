@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: HalamanGaya(),
-  ));
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HalamanGaya(),
+    );
+  }
 }
 
 class HalamanGaya extends StatefulWidget {
   @override
-  _HalamanGayaState createState() => _HalamanGayaState();
+  State<HalamanGaya> createState() => _HalamanGayaState();
 }
 
 class _HalamanGayaState extends State<HalamanGaya> {
@@ -19,36 +28,32 @@ class _HalamanGayaState extends State<HalamanGaya> {
   double hasil = 0;
 
   void hitungGaya() {
-    double massa = double.tryParse(massaController.text) ?? 0;
-    double percepatan = double.tryParse(percepatanController.text) ?? 0;
+    double m = double.tryParse(massaController.text) ?? 0;
+    double a = double.tryParse(percepatanController.text) ?? 0;
 
     setState(() {
-      hasil = massa * percepatan;
-    });
-  }
-
-  void reset() {
-    massaController.clear();
-    percepatanController.clear();
-
-    setState(() {
-      hasil = 0;
+      hasil = m * a;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Menghitung Gaya"),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+      ),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            SizedBox(height: 20),
             Text(
-              "F = m x a",
+              "Rumus Gaya (F = m × a)",
               style: TextStyle(
-                fontSize: 25,
-                color: Colors.blue,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 25),
@@ -74,22 +79,13 @@ class _HalamanGayaState extends State<HalamanGaya> {
               onPressed: hitungGaya,
               child: Text("Hitung Gaya"),
             ),
-            SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: reset,
-              child: Text("Reset"),
-            ),
             SizedBox(height: 25),
             Text(
-              "Hasil Gaya:",
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              "$hasil Newton",
+              "Hasil Gaya: $hasil Newton",
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.green,
+                color: Colors.blue,
               ),
             ),
           ],
